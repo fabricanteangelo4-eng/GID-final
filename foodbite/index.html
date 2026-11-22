@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087b75">
+  <title>3Bite - Food Ordering</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="splash-screen" id="splashScreen">
+  <div class="splash-content">
+    <div class="splash-logo">
+      <img src="assets/3bite-logo.png" alt="3Bite Logo">
+    </div>
+    <h1>3Bite<span>.</span></h1>
+    <p>Good food. Good mood.</p>
+    <div class="loading-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <small id="splashMessage">PREPARING YOUR EXPERIENCE</small>
+  </div>
+</div>
+
+<section class="auth-screen hidden" id="loginScreen">
+  <div class="auth-card">
+    <img class="auth-logo" src="assets/3bite-logo.png" alt="3Bite Logo">
+
+    <h1>Welcome to 3Bite<span>.</span></h1>
+    <p>Good food. Good mood.</p>
+
+    <form id="loginForm">
+      <label>Email Address</label>
+      <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter your password" required minlength="4">
+
+      <button type="submit" class="primary-button full-button">Login</button>
+    </form>
+
+    <p class="auth-switch">
+      Don't have an account?
+      <button type="button" id="showRegister">Register</button>
+    </p>
+  </div>
+</section>
+
+<section class="auth-screen hidden" id="registerScreen">
+  <div class="auth-card">
+    <img class="auth-logo" src="assets/3bite-logo.png" alt="3Bite Logo">
+
+    <h1>Create Account<span>.</span></h1>
+    <p>Join 3Bite today!</p>
+
+    <form id="registerForm">
+      <label>Full Name</label>
+      <input type="text" id="registerName" placeholder="Enter your name" required>
+
+      <label>Email Address</label>
+      <input type="email" id="registerEmail" placeholder="Enter your email" required>
+
+      <label>Password</label>
+      <input type="password" id="registerPassword" placeholder="Create a password" required minlength="4">
+
+      <button type="submit" class="primary-button full-button">Create Account</button>
+    </form>
+
+    <p class="auth-switch">
+      Already have an account?
+      <button type="button" id="showLogin">Login</button>
+    </p>
+  </div>
+</section>
+
+<main class="app-shell hidden" id="appShell">
+
+  <div class="status-bar">
+    <span id="clock">9:41</span>
+    <span>● ● ● ▰</span>
+  </div>
+
+  <section class="screen active" id="dashboardScreen">
+
+    <header class="app-header">
+      <div>
+        <small>GOOD DAY!</small>
+        <h1>Campus Gate 2 <span>⌄</span></h1>
+      </div>
+      <button class="round-button" id="headerProfile">☺</button>
+    </header>
+
+    <div class="screen-content">
+
+      <div class="search">
+        <span>⌕</span>
+        <input id="searchInput" type="search" placeholder="Search food or drinks">
+        <button id="clearSearch">×</button>
+      </div>
+
+      <div class="promo-card">
+        <div class="promo-copy">
+          <small>SPECIAL OFFER</small>
+          <h2>Lunch under<br><b>₱100</b></h2>
+          <p>Fresh meals. Happy moments.</p>
+          <button class="small-cta" id="promoExplore">Order now</button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" alt="Fresh food">
+      </div>
+
+      <div class="section-title">
+        <h2>Categories</h2>
+        <button class="text-button" id="seeAll">See all</button>
+      </div>
+
+      <div class="categories" id="categories">
+        <button class="category active" data-category="All"><span>✦</span>All</button>
+        <button class="category" data-category="Meals"><span>🍚</span>Meals</button>
+        <button class="category" data-category="Snacks"><span>🥪</span>Snacks</button>
+        <button class="category" data-category="Drinks"><span>🥤</span>Drinks</button>
+        <button class="category" data-category="Desserts"><span>🍰</span>Desserts</button>
+      </div>
+
+      <div class="section-title">
+        <h2>Popular near you</h2>
+        <button class="text-button" id="sortButton">Sort by price</button>
+      </div>
+
+      <div class="product-list" id="productList"></div>
+      <div class="empty-state hidden" id="emptyProducts">No food found.</div>
+
+    </div>
+  </section>
+
+  <section class="screen" id="checkoutScreen">
+
+    <header class="screen-header">
+      <button class="back-button" data-go="dashboard">‹</button>
+      <h1>Checkout</h1>
+      <span></span>
+    </header>
+
+    <div class="screen-content">
+
+      <div class="block-label">DELIVERY ADDRESS</div>
+
+      <button class="address-card" id="editAddress">
+        <span class="address-icon">⌖</span>
+        <span class="address-copy">
+          <b id="checkoutAddressTitle">Campus Gate 2</b>
+          <small id="checkoutAddressText">Delivery address</small>
+        </span>
+        <span>›</span>
+      </button>
+
+      <div class="block-label">YOUR ORDER</div>
+      <div class="checkout-items" id="checkoutItems"></div>
+
+      <div class="block-label">PAYMENT METHOD</div>
+
+      <div class="payment-options">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Cash on Delivery" checked>
+          <span class="payment-symbol">₱</span>
+          <span>
+            <b>Cash on Delivery</b>
+            <small>Pay when your order arrives</small>
+          </span>
+        </label>
+
+        <label class="payment-option">
+          <input type="radio" name="payment" value="GCash">
+          <span class="payment-symbol gcash">G</span>
+          <span>
+            <b>GCash</b>
+            <small>Pay using your GCash account</small>
+          </span>
+        </label>
+      </div>
+
+      <div class="summary-card">
+        <div><span>Subtotal</span><b id="checkoutSubtotal">₱0.00</b></div>
+        <div><span>Delivery fee</span><b id="checkoutDelivery">₱0.00</b></div>
+        <div class="summary-total"><span>Total</span><b id="checkoutTotal">₱0.00</b></div>
+      </div>
+
+      <button class="primary-button full-button" id="placeOrder">Place order</button>
+
+    </div>
+  </section>
+
+  <section class="screen" id="trackingScreen">
+
+    <header class="screen-header">
+      <button class="back-button" data-go="dashboard">‹</button>
+      <h1>Order Tracking</h1>
+      <span></span>
+    </header>
+
+    <div class="screen-content">
+
+      <div class="tracking-status">
+        <span class="status-check">✓</span>
+        <div>
+          <b id="trackingStatusTitle">Preparing your order</b>
+          <small id="trackingStatusSubtitle">Your order has been received</small>
+        </div>
+      </div>
+
+      <div class="order-id-row">
+        <span>ORDER ID</span>
+        <b id="trackingOrderId">FB-000000</b>
+      </div>
+
+      <div class="tracking-order-card" id="trackingOrderItems"></div>
+
+      <div class="block-label">ORDER STATUS</div>
+      <div class="timeline" id="timeline"></div>
+
+      <button class="primary-button full-button" id="contactButton">Contact store</button>
+      <button class="outline-button full-button" id="trackBack">Back to dashboard</button>
+
+    </div>
+  </section>
+
+  <section class="screen" id="profileScreen">
+
+    <header class="screen-header">
+      <button class="back-button" data-go="dashboard">‹</button>
+      <h1>Profile</h1>
+      <button class="icon-button" id="editProfile">✎</button>
+    </header>
+
+    <div class="profile-banner">
+      <div class="avatar" id="avatarInitials">FB</div>
+      <div>
+        <h2 id="profileNameDisplay">FoodBite Customer</h2>
+        <p id="profileEmailDisplay">customer@example.com</p>
+      </div>
+    </div>
+
+    <div class="screen-content profile-content">
+
+      <div class="profile-menu">
+
+        <button data-profile-action="orders">
+          <span class="menu-icon">▤</span>
+          <span><b>My Orders</b><small>View your order history</small></span>
+          <i>›</i>
+        </button>
+
+        <button data-profile-action="address">
+          <span class="menu-icon">⌖</span>
+          <span><b>My Addresses</b><small>Manage delivery addresses</small></span>
+          <i>›</i>
+        </button>
+
+        <button data-profile-action="payment">
+          <span class="menu-icon">▣</span>
+          <span><b>Payment Methods</b><small>Manage payment options</small></span>
+          <i>›</i>
+        </button>
+
+        <button data-profile-action="help">
+          <span class="menu-icon">?</span>
+          <span><b>Help & Support</b><small>We're here to help</small></span>
+          <i>›</i>
+        </button>
+
+      </div>
+
+      <button class="logout-button" id="logoutButton">Log Out</button>
+      <p class="version">3Bite App · Version 1.0</p>
+
+    </div>
+  </section>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-nav="dashboard">
+      <span>⌂</span><small>Home</small>
+    </button>
+
+    <button class="nav-item" data-nav="orders">
+      <span>▤</span><small>Orders</small>
+    </button>
+
+    <button class="nav-item" data-nav="checkout">
+      <span>🛒</span><small>Cart <em id="cartBadge">0</em></small>
+    </button>
+
+    <button class="nav-item" data-nav="profile">
+      <span>○</span><small>Profile</small>
+    </button>
+  </nav>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-backdrop hidden" id="modalBackdrop">
+  <div class="modal">
+    <div class="modal-heading">
+      <h2 id="modalTitle">Details</h2>
+      <button id="closeModal">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
